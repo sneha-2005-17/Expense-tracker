@@ -1,0 +1,4 @@
+node_modules
+uploads/receipts/*
+!uploads/.gitkeep
+!uploads/receipts/.gitkeep
