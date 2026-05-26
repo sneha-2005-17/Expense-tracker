@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import LoadingSpinner from '../components/LoadingSpinner';
-import { getApiError } from '../utils/apiError';
 import { IconWallet } from '../components/ui/Icons';
 
 const Login = () => {
