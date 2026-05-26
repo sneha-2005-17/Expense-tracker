@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const connectDB = async (retries = 5, delayMs = 3000) => {
-  mongoose.set('bufferCommands', false);
   const uri = process.env.MONGODB_URI;
   const isVercel = !!process.env.VERCEL;
 
