@@ -10,6 +10,20 @@ export const AuthProvider = ({ children }) => {
   const loadUser = useCallback(async () => {
     const token = localStorage.getItem('token');
     if (!token) {
+      if (localStorage.getItem('logged_out') === 'true') {
+        setLoading(false);
+        return;
+      }
+      // Auto-login as a demo user
+      const demoUser = {
+        _id: 'demo_user_123',
+        name: 'Demo User',
+        email: 'demo@example.com',
+        token: 'dummy_token'
+      };
+      localStorage.setItem('token', 'dummy_token');
+      localStorage.setItem('user', JSON.stringify(demoUser));
+      setUser(demoUser);
       setLoading(false);
       return;
     }
@@ -39,6 +53,7 @@ export const AuthProvider = ({ children }) => {
   }, [loadUser]);
 
   const login = async (email, password) => {
+    localStorage.removeItem('logged_out');
     const { data } = await api.post('/auth/login', { email, password });
     localStorage.setItem('token', data.token);
     localStorage.setItem('user', JSON.stringify(data));
@@ -47,6 +62,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (name, email, password) => {
+    localStorage.removeItem('logged_out');
     const { data } = await api.post('/auth/register', { name, email, password });
     localStorage.setItem('token', data.token);
     localStorage.setItem('user', JSON.stringify(data));
@@ -57,6 +73,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.setItem('logged_out', 'true');
     setUser(null);
   };
 
