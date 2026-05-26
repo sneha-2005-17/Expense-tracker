@@ -1,4 +1,4 @@
 node_modules
-uploads/receipts/*
-!uploads/.gitkeep
-!uploads/receipts/.gitkeep
+build
+.env.local
+.DS_Store
