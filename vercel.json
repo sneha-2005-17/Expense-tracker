@@ -6,7 +6,11 @@
     },
     "backend": {
       "entrypoint": "backend",
-      "routePrefix": "/_/backend"
+      "routePrefix": "/api"
+    },
+    "uploads": {
+      "entrypoint": "backend",
+      "routePrefix": "/uploads"
     }
   }
 }

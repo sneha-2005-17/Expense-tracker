@@ -18,15 +18,18 @@ app.use(express.json({ limit: '15mb' }));
 // Serve uploaded receipt images
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.get('/api/health', (req, res) => {
+app.get(['/api/health', '/health'], (req, res) => {
   res.json({ status: 'ok', message: 'Expense Tracker API is running' });
 });
 
-app.use('/api/auth', authRoutes);
-app.use('/api/transactions', transactionRoutes);
-app.use('/api/budget', budgetRoutes);
-app.use('/api/dashboard', dashboardRoutes);
-app.use('/api/receipts', receiptRoutes);
+app.use(['/api/auth', '/auth'], authRoutes);
+app.use(['/api/transactions', '/transactions'], transactionRoutes);
+app.use(['/api/budget', '/budget'], budgetRoutes);
+app.use(['/api/dashboard', '/dashboard'], dashboardRoutes);
+app.use(['/api/receipts', '/receipts'], receiptRoutes);
+
+// Fallback to serve static files from uploads folder for stripped path requests
+app.use('/', express.static(path.join(__dirname, 'uploads')));
 
 app.use((err, req, res, next) => {
   if (err.code === 'LIMIT_FILE_SIZE') {
