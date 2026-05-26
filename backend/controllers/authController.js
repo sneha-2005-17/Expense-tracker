@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
+  return jwt.sign({ id }, process.env.JWT_SECRET || 'expense_tracker_dev_secret_key_2024', {
     expiresIn: process.env.JWT_EXPIRE || '7d',
   });
 };
